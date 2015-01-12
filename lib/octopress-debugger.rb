@@ -14,11 +14,9 @@ module Octopress
         site = context.registers[:site]
         page_hash = context.registers[:page]
         page = site.pages.find{|p| p.url == page_hash['url'] }
+        scopes = context.scopes
 
         binding.pry
-        # site: site instance
-        # page_hash: page instance in hash form
-        # page: page instance
 
         return ''
       end
