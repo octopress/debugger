@@ -2,6 +2,9 @@
 
 A simple liquid tag for debugging Jekyll sites with a fancy debugger console.
 
+[![Gem Version](http://img.shields.io/gem/v/octopress-debugger.svg)](https://rubygems.org/gems/octopress-debugger)
+[![License](http://img.shields.io/:license-mit-blue.svg)](http://octopress.mit-license.org)
+
 ## Installation
 
 If you're using bundler add this gem to your site's Gemfile in the `:jekyll_plugins` group:
