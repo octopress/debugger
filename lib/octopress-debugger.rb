@@ -12,26 +12,42 @@ module Octopress
     class Tag < Liquid::Tag
       def render(context)
         @context = context
-        # Instances
-        site      = context.registers[:site]
-        page      = site.pages.find{|p| p.url == c('page')['url'] }
 
-        # HELP:
+        # HELP: How does this work?
+        #
+        # Try these commands:
+        #  site   => Jekyll's Site instance
+        #  page   => Current Page instance
+        #  scopes => View local variable scopes
+        #
         # Use `c` to read variables from Liquid's context 
-        # - c 'site' => site hash
-        # - c 'page' => page hash
+        #  c 'site' => site hash
+        #  c 'page' => page hash
         #
         # Dot notation works too:
-        # - c 'page.content'
-        # - c 'post.tags'
+        #  c 'site.posts.first'
+        #  c 'page.content'
+        #  c 'post.tags'
 
         binding.pry
 
         return '' # Debugger halts on this line
       end
 
-      def c(var)
-        @context[var]
+      def c(var=nil)
+        var.nil? ? @context : @context[var]
+      end
+
+      def site
+        site = @context.registers[:site]
+      end
+
+      def page
+        @page ||= site.pages.find{|p| p.url == c('page')['url'] }
+      end
+
+      def scopes
+        @context.scopes
       end
     end
   end

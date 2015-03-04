@@ -28,14 +28,38 @@ Then add the gem to your Jekyll configuration.
 
 ## Usage
 
-Add the `{% debug %}` tag to any page to get access to the `site` and `page` instance from the debugger console.
+Add the `{% debug %}` tag to any page to get access to the debugger console when that page is generated.
 
 This will launch an interactive debugging console where you can do some cool things.
 
-- Type `site` to interact with the site instance.
-- Type `page` to interact with the current page instance.
-- Type `page_hash` to view the page instance as a hash.
-- Type `scopes` to view current template variables.
+Some useful debugger commands:
+
+- `continue` - to go to the next `{% debug %}` tag, or step through a loop.
+- `abort` - to exit the debugger.
+- `help` - show manual for the debugger and learn other commands.
+
+I've added some convenience methods for working with the Liquid context.
+
+- `c` - Liquid's context
+- `site` - Jekyll's Site class instance.
+- `page` - Current Page class instance.
+- `scopes` - Scopes for local variables.
+
+You can pass strings to the `c` method to inspect variables.
+
+```ruby
+c 'site' # => current site payload hash
+c 'page' # => current page payload hash
+```
+
+Dot notation works too:
+
+```ruby
+c 'site.pages'        # => Array of site posts
+c 'site.posts.first'  # => First post instance in site posts array
+c 'page.layout'       # => Read data from current page
+c 'foo'               # => Read locally assigned vars
+```
 
 ### Example:
 
@@ -66,7 +90,7 @@ In the debugger you can type `scopes` to see a hash representing variables in th
 You can see the value of post and interact with the post instance with `scopes.first['post']` and even see all the available data on
 the for loop. 
 
-Then you can enter `continue` or `c` to step through the loop.
+Then you can type `continue` to step through the loop or go to the next `{% debug %}` tag.
 
 ## Contributing
 
