@@ -11,14 +11,27 @@ module Octopress
   module Debugger
     class Tag < Liquid::Tag
       def render(context)
-        site = context.registers[:site]
-        page_hash = context.registers[:page]
-        page = site.pages.find{|p| p.url == page_hash['url'] }
-        scopes = context.scopes
+        @context = context
+        # Instances
+        site      = context.registers[:site]
+        page      = site.pages.find{|p| p.url == c('page')['url'] }
+
+        # HELP:
+        # Use `c` to read variables from Liquid's context 
+        # - c 'site' => site hash
+        # - c 'page' => page hash
+        #
+        # Dot notation works too:
+        # - c 'page.content'
+        # - c 'post.tags'
 
         binding.pry
 
-        return ''
+        return '' # Debugger halts on this line
+      end
+
+      def c(var)
+        @context[var]
       end
     end
   end
