@@ -24,7 +24,7 @@ To install manually without bundler:
 Then add the gem to your Jekyll configuration.
 
     gems:
-      -octopress-debugger
+      - octopress-debugger
 
 ## Usage
 
